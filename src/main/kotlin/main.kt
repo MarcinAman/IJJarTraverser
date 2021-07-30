@@ -6,20 +6,20 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.jar.JarFile
 
-val ijVersion = "201.7223.92"
-val category = "com.jetbrains.intellij.platform"
-val tempDir = "/Users/maman/Documents/JarTraverser/tempDir"
-val fileToFind = "ApplicationManager"
+private val ijVersion = "193.6494.35"
+private val category = "com.jetbrains.intellij.platform"
+private val tempDir = "/Users/maman/Documents/JarTraverser/tempDir"
+private val fileToFind = "PanelWithAnchor"
 
-fun String.saveTo(path: String) {
-    if(!File(path).exists()) {
+fun String.saveTo(path: String) = kotlin.runCatching {
+    if (!File(path).exists()) {
         URL(this).openStream().use { input ->
             FileOutputStream(File(path)).use { output ->
                 input.copyTo(output)
             }
         }
     }
-}
+}.getOrNull()
 
 fun main() {
     Files.createDirectories(Paths.get("tempDir"))
